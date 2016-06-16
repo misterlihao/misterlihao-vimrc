@@ -103,6 +103,27 @@ let mapleader="-"
 nnoremap <silent> <leader>src :source $MYVIMRC<CR>
 nnoremap <silent> <leader>rc :tabe    $MYVIMRC<CR>
 
+" support for pasting
+nnoremap <silent> <leader>i :let b:setlocal_paste=1<CR>:setlocal paste<CR>i
+nnoremap <silent> <leader>I :let b:setlocal_paste=1<CR>:setlocal paste<CR>I
+nnoremap <silent> <leader>a :let b:setlocal_paste=1<CR>:setlocal paste<CR>a
+nnoremap <silent> <leader>A :let b:setlocal_paste=1<CR>:setlocal paste<CR>A
+nnoremap <silent> <leader>o :let b:setlocal_paste=1<CR>:setlocal paste<CR>o
+nnoremap <silent> <leader>O :let b:setlocal_paste=1<CR>:setlocal paste<CR>O
+autocmd InsertLeave * silent! call UnsetLocalPase()
+if !exists("*UnsetLocalPase")
+function! UnsetLocalPase()
+    if b:setlocal_paste
+        let b:setlocal_paste=0
+        setlocal nopaste
+    endif
+endfunction
+endif
+
+" navigation with dot command
+nnoremap <silent> <leader>j .j
+nnoremap <silent> <leader>k .k
+
 " word-wide quoting
 call Nnoremap('<leader><','viw<Esc>a><Esc>bi<<Esc>')
 call Nnoremap('<leader>(','viw<Esc>a)<Esc>bi(<Esc>')
