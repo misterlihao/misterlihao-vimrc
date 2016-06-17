@@ -110,9 +110,9 @@ nnoremap <silent> <leader>a :let b:setlocal_paste=1<CR>:setlocal paste<CR>a
 nnoremap <silent> <leader>A :let b:setlocal_paste=1<CR>:setlocal paste<CR>A
 nnoremap <silent> <leader>o :let b:setlocal_paste=1<CR>:setlocal paste<CR>o
 nnoremap <silent> <leader>O :let b:setlocal_paste=1<CR>:setlocal paste<CR>O
-autocmd InsertLeave * silent! call UnsetLocalPase()
-if !exists("*UnsetLocalPase")
-function! UnsetLocalPase()
+autocmd InsertLeave * silent! call UnsetLocalPaste()
+if !exists("*UnsetLocalPaste")
+function! UnsetLocalPaste()
     if b:setlocal_paste
         let b:setlocal_paste=0
         setlocal nopaste
@@ -125,12 +125,17 @@ call Nnoremap('<leader><','viw<Esc>a><Esc>bi<<Esc>')
 call Nnoremap('<leader>(','viw<Esc>a)<Esc>bi(<Esc>')
 call Nnoremap('<leader>[','viw<Esc>a]<Esc>bi[<Esc>')
 call Nnoremap("<leader>'","viw<Esc>a'<Esc>bi'<Esc>")
+call Nnoremap('<leader>"','viw<Esc>a"<Esc>bi"<Esc>')
 
 " paste at end of line, then back to prev position
 call Nnoremap('<leader>p', 'ma$p`a')
-
 " paste at begining of line
 call Nnoremap('<leader>P', '^P')
+
+" 'x' at end of line, then back to prev position
+call Nnoremap('<leader>x', 'ma$x`a')
+" 'x' at begining of line (prevent stopped when cursor is at ^)
+call Nnoremap('<leader>X', ':normal! h<CR>ma^x`a')
 
 " copy current line
 call Nnoremap('<leader><Space>', 'yyp')
