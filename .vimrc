@@ -19,6 +19,12 @@ function! Nnoremap(lhs, rhs)
     execute 'nnoremap <silent> '.a:lhs.' '.a:rhs.':call repeat#set("'.a:lhs.'")<CR>'
 endfunction
 endif
+
+if !exists("*AddCommentKeyMapping")
+function! AddCommentKeyMapping(comment_string)
+    call Nnoremap('<leader>/', 'maI'.a:comment_string.'<Esc>`a')
+endfunction
+endif
 "}}}
 
 " global settings {{{
@@ -99,6 +105,7 @@ noremap <C-n>  l
 " leader mapping {{{
 
 let mapleader="-"
+nmap - <NOP>
 " playing around with vimrc file
 nnoremap <silent> <leader>src :source $MYVIMRC<CR>
 nnoremap <silent> <leader>rc :tabe    $MYVIMRC<CR>
@@ -119,6 +126,9 @@ function! UnsetLocalPaste()
     endif
 endfunction
 endif
+
+" repeat with eaze
+call Nnoremap('<Space>', 'j.')
 
 " word-wide quoting
 call Nnoremap('<leader><','viw<Esc>a><Esc>bi<<Esc>')
@@ -160,17 +170,33 @@ iabbrev #= !=
 
 if !exists("*CCppSettings")
 function! CCppSettings()
-    " add ; at end of line, then go back to prev position
+    " add ; at end of line, keep cursor position
     call Nnoremap('<leader>;', 'maA;<Esc>`a')
+    call AddCommentKeyMapping('//')
     set foldmethod=syntax
+endfunction
+endif
+
+if !exists("*VimSettings")
+function! VimSettings()
+    " add ; at end of line, then go back to prev position
+    setlocal foldmethod=marker
+    call AddCommentKeyMapping('#')
 endfunction
 endif
 
 augroup au_filetype
     autocmd!
-    autocmd FileType *   setlocal foldmethod=indent
-    autocmd FileType vim setlocal foldmethod=marker
-    autocmd FileType c,cpp call CCppSettings()
+    autocmd FileType *       setlocal foldmethod=indent
+    autocmd FileType vim     call VimSettings()
+    autocmd FileType c,cpp   call CCppSettings()
+    autocmd FileType python  call AddCommentKeyMapping('#')
+    autocmd FileType lua     call AddCommentKeyMapping('--')
+augroup END
+augroup au_ui
+    autocmd!
+    autocmd InsertEnter * highlight StatusLine ctermbg=green guifg=green
+    autocmd VimEnter,InsertLeave * highlight StatusLine ctermbg=white guifg=white
 augroup END
 " }}}
 
