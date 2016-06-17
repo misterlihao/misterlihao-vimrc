@@ -120,10 +120,6 @@ function! UnsetLocalPase()
 endfunction
 endif
 
-" navigation with dot command
-nnoremap <silent> <leader>j .j
-nnoremap <silent> <leader>k .k
-
 " word-wide quoting
 call Nnoremap('<leader><','viw<Esc>a><Esc>bi<<Esc>')
 call Nnoremap('<leader>(','viw<Esc>a)<Esc>bi(<Esc>')
