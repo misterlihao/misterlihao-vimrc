@@ -16,7 +16,8 @@ endif
 " nnoremap with and allow repeat command with dot command
 if !exists("*Nnoremap")
 function! Nnoremap(lhs, rhs)
-    execute 'nnoremap <silent> '.a:lhs.' '.a:rhs.':call repeat#set("'.a:lhs.'")<CR>'
+    let escaped_str = escape(a:lhs, '\"')
+    execute 'nnoremap <silent> '.a:lhs.' '.a:rhs.':call repeat#set("'.escaped_str.'")<CR>'
 endfunction
 endif
 
@@ -128,7 +129,8 @@ endfunction
 endif
 
 " repeat with eaze
-call Nnoremap('<Space>', 'j.')
+nnoremap <silent> <Space> j:normal .<CR>
+nnoremap <silent> \       k:normal .<CR>
 
 " word-wide quoting
 call Nnoremap('<leader><','viw<Esc>a><Esc>bi<<Esc>')
@@ -181,7 +183,7 @@ if !exists("*VimSettings")
 function! VimSettings()
     " add ; at end of line, then go back to prev position
     setlocal foldmethod=marker
-    call AddCommentKeyMapping('#')
+    call AddCommentKeyMapping('"')
 endfunction
 endif
 
