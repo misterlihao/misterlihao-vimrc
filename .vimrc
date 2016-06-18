@@ -29,8 +29,12 @@ endif
 "}}}
 
 " global settings {{{
-" allow to erase previously entered text
-set backspace=2
+
+" backspace cannot delete over indent, eol, start of insert position
+" use '<' and '>' to manipulate indent
+" use J(or gJ)to join lines
+set backspace=0 
+
 set tabstop=4
 set shiftwidth=4
 set shiftround
@@ -65,11 +69,14 @@ set textwidth=0 wrapmargin=0
 "}}}
 
 " global mapping {{{
-" agile editing (C-h is preserved)
-inoremap <C-d>  <Delete>
+" agile editing (C-h is natively preserved)
+inoremap <C-D>  <Delete>
 
 " rumor says that Ctrl-C will not fire the 'InsertLeave' event
 inoremap <C-C> <Esc>
+
+" quick pasting
+inoremap <BS> <C-O>p
 
 " insert a empty line and back to normal mode. (for code rearrangment)
 nnoremap <CR>   o<Esc>
@@ -79,7 +86,7 @@ nnoremap za zA
 nnoremap ZA za
 
 " press zj,zk to navigate from fold to fold, 
-" and automatically fold and unfold
+" fold on leaving and open on entering a fold
 " also keep cursor on the same screen line
 nnoremap zj :let tmp=winline()-&scrolloff<CR>:silent! foldc!<CR>:silent! normal! zj  <CR>zOzt:call ScrollDown(tmp)<CR>
 nnoremap zk :let tmp=winline()-&scrolloff<CR>:silent! foldc!<CR>:silent! normal! zk<CR>jkzOzt:call ScrollDown(tmp)<CR>
@@ -106,7 +113,7 @@ noremap <C-n>  l
 " leader mapping {{{
 
 let mapleader="-"
-nmap - <NOP>
+nnoremap - <NOP>
 " playing around with vimrc file
 nnoremap <silent> <leader>src :source $MYVIMRC<CR>
 nnoremap <silent> <leader>rc :tabe    $MYVIMRC<CR>
@@ -128,9 +135,8 @@ function! UnsetLocalPaste()
 endfunction
 endif
 
-" repeat with eaze
-nnoremap <silent> <Space> j:normal .<CR>
-nnoremap <silent> \       k:normal .<CR>
+" insert a character
+nnoremap <silent> <Space> :exec "normal! i".nr2char(getchar())."\e"<CR>
 
 " word-wide quoting
 call Nnoremap('<leader><','viw<Esc>a><Esc>bi<<Esc>')
@@ -203,6 +209,6 @@ augroup END
 " }}}
 
 " disable keys that are not suggested to use {{{
-inoremap <Esc> <NOP>
+inoremap <Esc> <Nop>
 
 " }}}
