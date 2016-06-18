@@ -65,8 +65,6 @@ endif
 inoremap <C-D>  <Delete>
 " rumor says that Ctrl-C will not fire the 'InsertLeave' event
 inoremap <C-C> <Esc>
-" quick pasting
-inoremap <C-\> <C-O>p
 " insert a empty line and back to normal mode. (for code rearrangment)
 nnoremap <CR>   o<Esc>
 " press za to unfold all level
