@@ -37,6 +37,7 @@ set expandtab
 set number
 set relativenumber
 set scrolloff=2
+set ruler
 syntax on
 " auto indent
 set autoindent
@@ -48,15 +49,15 @@ set t_Co=256
 set laststatus=2
 set swapfile
 set nobackup
+colorscheme lucius
+set background=dark
 if has('gui_running')
-    colorscheme desert
     set guifont=Consolas:h12
     set mouse= 
     set guioptions-=m  "remove menu bar
     set guioptions-=T  "remove toolbar
     set guioptions-=r  "remove right-hand scroll bar
 else
-    colorscheme default
 endif
 "}}}
 
@@ -79,7 +80,7 @@ nnoremap ZJ zj
 nnoremap ZK zk
 " vim tabbing
 nnoremap <Left>   :tabp<CR>
-nnoremap <Right>   :tabn<CR>
+nnoremap <Right>  :tabn<CR>
 " scrolling
 noremap <Up>   <C-y>
 noremap <Down> <c-e>
