@@ -13,7 +13,7 @@ cd ~
 git init
 git remote add origin https://github.com/misterlihao/misterlihao-vimrc.git
 git pull origin master
-git branch set --set-upstream-to=origin/master master
+git branch --set-upstream-to=origin/master master
 ```
 You have to remove all files colliding with the project before `pull`.
 (The script still works though you keep the directories).
