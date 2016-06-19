@@ -3,3 +3,13 @@
 !.gitignore
 !.vimrc
 
+!/.vim/
+/.vim/*
+
+!.vim/plugin/
+.vim/plugin/*
+!.vim/colors/
+.vim/colors/*
+
+!.vim/plugin/repeat.vim
+!.vim/colors/lucius.vim
