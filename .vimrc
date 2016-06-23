@@ -64,8 +64,6 @@ endif
 " global mapping {{{
 " c-u scrolling does not fit folding
 nnoremap <C-u> <C-b>
-" against J(join)
-nnoremap K mai<CR><Esc>`a
 " agile editing (C-h is natively preserved)
 inoremap <C-D>  <Delete>
 " rumor says that Ctrl-C will not fire the 'InsertLeave' event
@@ -135,6 +133,8 @@ call Nnoremap('<leader>x', 'ma$x`a')
 call Nnoremap('<leader>X', ':normal! h<CR>ma^x`a')
 " copy current line
 call Nnoremap('<leader><Space>', 'yyp')
+" against J(join)
+call Nnoremap('<leader>J', 'mai<CR><Esc>`a')
 " }}}
 
 " typos {{{
