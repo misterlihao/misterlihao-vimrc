@@ -62,6 +62,10 @@ endif
 "}}}
 
 " global mapping {{{
+" c-u scrolling does not fit folding
+nnoremap <C-u> <C-b>
+" against J(join)
+nnoremap K mai<CR><Esc>`a
 " agile editing (C-h is natively preserved)
 inoremap <C-D>  <Delete>
 " rumor says that Ctrl-C will not fire the 'InsertLeave' event
