@@ -49,6 +49,9 @@ set t_Co=256
 set laststatus=2
 set swapfile
 set nobackup
+
+let g:lucius_contrast='high'
+let g:lucius_contrast_bg='high'
 colorscheme lucius
 set background=dark
 if has('gui_running')
