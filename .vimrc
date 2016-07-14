@@ -6,6 +6,7 @@ function ScrollDown(n)
     endif
 endfunction
 endif
+
 if !exists("*PlaySound")
 function! PlaySound(file) " for windows
     silent! exec '!start /B @D:\downloads\sounder1.exe "'.a:file.'"'
@@ -18,11 +19,26 @@ function! Nnoremap(lhs, rhs)
     execute 'nnoremap <silent> '.a:lhs.' '.a:rhs.':call repeat#set("'.escaped_str.'")<CR>'
 endfunction
 endif
+
 if !exists("*AddCommentKeyMapping")
 function! AddCommentKeyMapping(comment_string)
     call Nnoremap('<leader>/', 'maI'.a:comment_string.'<Esc>`a')
 endfunction
 endif
+
+if !exists("*MyAfterInsert")
+function! MyAfterInsert()
+    if b:setlocal_paste
+        let b:setlocal_paste=0
+        setlocal nopaste
+    endif
+endfunction
+endif
+
+
+augroup au_events
+    autocmd InsertLeave * silent! call MyAfterInsert()
+augroup END
 "}}}
 
 " global settings {{{
@@ -50,11 +66,11 @@ set laststatus=2
 set swapfile
 set nobackup
 
-let g:lucius_contrast='high'
-let g:lucius_contrast_bg='high'
-colorscheme lucius
 set background=dark
 if has('gui_running')
+    let g:lucius_contrast='high'
+    let g:lucius_contrast_bg='high'
+    colorscheme lucius
     set guifont=Consolas:h12
     set mouse= 
     set guioptions-=m  "remove menu bar
@@ -82,7 +98,9 @@ nnoremap ZA za
 nnoremap zj :let tmp=winline()-&scrolloff<CR>:silent! foldc!<CR>:silent! normal! zj  <CR>zOzt:call ScrollDown(tmp)<CR>
 nnoremap zk :let tmp=winline()-&scrolloff<CR>:silent! foldc!<CR>:silent! normal! zk<CR>jkzOzt:call ScrollDown(tmp)<CR>
 nnoremap ZJ zj
+nnoremap zJ zj
 nnoremap ZK zk
+nnoremap zK zk
 " vim tabbing
 nnoremap <Left>   :tabp<CR>
 nnoremap <Right>  :tabn<CR>
@@ -101,31 +119,17 @@ let mapleader="-"
 nnoremap - <NOP>
 " playing around with vimrc file
 nnoremap <silent> <leader>src :source $MYVIMRC<CR>
-nnoremap <silent> <leader>rc :tabe    $MYVIMRC<CR>
+nnoremap <silent> <leader>rc  :tabe   $MYVIMRC<CR>
 " support for pasting
-nnoremap <silent> <leader>i :let b:setlocal_paste=1<CR>:setlocal paste<CR>i
-nnoremap <silent> <leader>I :let b:setlocal_paste=1<CR>:setlocal paste<CR>I
 nnoremap <silent> <leader>a :let b:setlocal_paste=1<CR>:setlocal paste<CR>a
-nnoremap <silent> <leader>A :let b:setlocal_paste=1<CR>:setlocal paste<CR>A
 nnoremap <silent> <leader>o :let b:setlocal_paste=1<CR>:setlocal paste<CR>o
-nnoremap <silent> <leader>O :let b:setlocal_paste=1<CR>:setlocal paste<CR>O
-autocmd InsertLeave * silent! call UnsetLocalPaste()
-if !exists("*UnsetLocalPaste")
-function! UnsetLocalPaste()
-    if b:setlocal_paste
-        let b:setlocal_paste=0
-        setlocal nopaste
-    endif
-endfunction
-endif
+" search for text covered by 'd', 'c', 's', 'x', 'y'
+nnoremap <silent> <leader>* /<C-r>"<CR>
+nnoremap <silent> <leader># ?<C-r>"<CR>
 " insert a character
 nnoremap <silent> <Space> :exec "normal! i".nr2char(getchar())."\e"<CR>
-" word-wide quoting
-call Nnoremap('<leader><','viw<Esc>a><Esc>bi<<Esc>')
-call Nnoremap('<leader>(','viw<Esc>a)<Esc>bi(<Esc>')
-call Nnoremap('<leader>[','viw<Esc>a]<Esc>bi[<Esc>')
-call Nnoremap("<leader>'","viw<Esc>a'<Esc>bi'<Esc>")
-call Nnoremap('<leader>"','viw<Esc>a"<Esc>bi"<Esc>')
+" append a character
+nnoremap <silent> <BS>    :exec "normal! a".nr2char(getchar())."\e"<CR>
 " paste at end of line, then back to prev position
 call Nnoremap('<leader>p', 'ma$p`a')
 " paste at begining of line
@@ -138,17 +142,6 @@ call Nnoremap('<leader>X', ':normal! h<CR>ma^x`a')
 call Nnoremap('<leader><Space>', 'yyp')
 " against J(join)
 call Nnoremap('<leader>J', 'mai<CR><Esc>`a')
-" }}}
-
-" typos {{{
-iabbrev waht what
-iabbrev pirntf printf
-iabbrev inculde #include
-iabbrev retrun return
-iabbrev wirte write
-iabbrev ]= !=
-iabbrev [+ []
-iabbrev #= !=
 " }}}
 
 " autocmd against filetypes {{{
@@ -181,6 +174,17 @@ augroup au_ui
     "autocmd VimEnter,InsertLeave * highlight StatusLine ctermbg=white guifg=white
 augroup END
 " }}}
+
+" key logging module {{{
+augroup key_logging
+    autocmd!
+    autocmd InsertEnter * exec "normal! q" | let @a=@a.@q
+    autocmd InsertLeave * let @a=@a.@q | normal! qq
+    autocmd VimEnter    * let @a=""    | normal! qq
+    autocmd VimLeave    * exec "normal! q" | let @a=@a.@q | redir >> $MYVIMRC.log | echo @a | redir END
+augroup END
+nnoremap q <Nop>
+"}}}
 
 " disable keys that are not suggested to use {{{
 inoremap <Esc> <Nop>
