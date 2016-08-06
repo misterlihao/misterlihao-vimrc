@@ -107,6 +107,8 @@ nnoremap <Right>  :tabn<CR>
 " scrolling
 noremap <Up>   <C-y>
 noremap <Down> <c-e>
+noremap <Home> gg
+noremap <End>  G
 " for dvoraker
 noremap <C-d>  h
 noremap <C-h>  j
@@ -117,6 +119,8 @@ noremap <C-n>  l
 " leader mapping {{{
 let mapleader="-"
 nnoremap - <NOP>
+" XXX repeat with next line
+call Nnoremap('<leader>.', 'j.')
 " playing around with vimrc file
 nnoremap <silent> <leader>src :source $MYVIMRC<CR>
 nnoremap <silent> <leader>rc  :tabe   $MYVIMRC<CR>
@@ -164,6 +168,7 @@ augroup au_filetype
     autocmd!
     autocmd FileType *       setlocal foldmethod=indent
     autocmd FileType vim     call VimSettings()
+    autocmd FileType pov     set filetype=cpp " for .inc
     autocmd FileType c,cpp   call CCppSettings()
     autocmd FileType python  call AddCommentKeyMapping('#')
     autocmd FileType lua     call AddCommentKeyMapping('--')
