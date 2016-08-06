@@ -119,8 +119,6 @@ noremap <C-n>  l
 " leader mapping {{{
 let mapleader="-"
 nnoremap - <NOP>
-" XXX repeat with next line
-call Nnoremap('<leader>.', 'j.')
 " playing around with vimrc file
 nnoremap <silent> <leader>src :source $MYVIMRC<CR>
 nnoremap <silent> <leader>rc  :tabe   $MYVIMRC<CR>
