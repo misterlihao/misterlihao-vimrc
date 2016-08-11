@@ -37,7 +37,8 @@ endif
 if !exists("*MoveChosenRecording")
 function! MoveChosenRecording()
     normal! q
-    let str = input(@q[-60:].' > ')
+    echo @q[-60:].':'
+    let str = input("")
     let @q = @q[strridx(@q, str):]
     echom @q
     normal! qq
