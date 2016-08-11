@@ -34,6 +34,15 @@ function! MyAfterInsert()
     endif
 endfunction
 endif
+if !exists("*MoveChosenRecording")
+function! MoveChosenRecording()
+    normal! q
+    let str = input(@q[-60:].' > ')
+    let @q = @q[strridx(@q, str):]
+    echom @q
+    normal! qq
+endfunction
+endif
 
 
 augroup au_events
@@ -178,15 +187,22 @@ augroup au_ui
 augroup END
 " }}}
 
-" key logging module {{{
+" auto recording {{{
 augroup key_logging
     autocmd!
-    autocmd InsertEnter * exec "normal! q" | let @a=@a.@q
-    autocmd InsertLeave * let @a=@a.@q | normal! qq
-    autocmd VimEnter    * let @a=""    | normal! qq
-    autocmd VimLeave    * exec "normal! q" | let @a=@a.@q | redir >> $MYVIMRC.log | echo @a | redir END
+    autocmd VimEnter * normal! qq
 augroup END
-nnoremap q <Nop>
+nnoremap q q:call MoveChosenRecording()<CR>
+"}}}
+" key logging module {{{
+" augroup key_logging
+"     autocmd!
+"     autocmd InsertEnter * exec "normal! q" | let @a=@a.@q
+"     autocmd InsertLeave * let @a=@a.@q | normal! qq
+"     autocmd VimEnter    * let @a=""    | normal! qq
+"     autocmd VimLeave    * exec "normal! q" | let @a=@a.@q | redir >> $MYVIMRC.log | echo @a | redir END
+" augroup END
+" nnoremap q <Nop>
 "}}}
 
 " disable keys that are not suggested to use {{{
