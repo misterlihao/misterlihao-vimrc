@@ -76,17 +76,13 @@ set laststatus=2
 set swapfile
 set nobackup
 
-set background=dark
+silent! source ~/vim.color
 if has('gui_running')
-    let g:lucius_contrast='high'
-    let g:lucius_contrast_bg='high'
-    colorscheme lucius
     set guifont=Consolas:h12
     set mouse= 
     set guioptions-=m  "remove menu bar
     set guioptions-=T  "remove toolbar
     set guioptions-=r  "remove right-hand scroll bar
-else
 endif
 "}}}
 

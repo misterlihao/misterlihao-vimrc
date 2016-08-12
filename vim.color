@@ -1,0 +1,4 @@
+set background=dark
+let g:lucius_contrast='high'
+let g:lucius_contrast_bg='high'
+colorscheme lucius
