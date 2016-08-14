@@ -188,24 +188,6 @@ augroup au_ui
 augroup END
 " }}}
 
-" auto recording {{{
-augroup key_logging
-    autocmd!
-    autocmd VimEnter * normal! qq
-augroup END
-nnoremap q q:call MoveChosenRecording()<CR>
-"}}}
-" key logging module {{{
-" augroup key_logging
-"     autocmd!
-"     autocmd InsertEnter * exec "normal! q" | let @a=@a.@q
-"     autocmd InsertLeave * let @a=@a.@q | normal! qq
-"     autocmd VimEnter    * let @a=""    | normal! qq
-"     autocmd VimLeave    * exec "normal! q" | let @a=@a.@q | redir >> $MYVIMRC.log | echo @a | redir END
-" augroup END
-" nnoremap q <Nop>
-"}}}
-
 " disable keys that are not suggested to use {{{
 inoremap <Esc> <Nop>
 " }}}
