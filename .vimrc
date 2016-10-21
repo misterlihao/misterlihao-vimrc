@@ -22,7 +22,7 @@ endif
 
 if !exists("*AddCommentKeyMapping")
 function! AddCommentKeyMapping(comment_string)
-    call Nnoremap('<leader>/', 'maI'.a:comment_string.'<Esc>`a')
+    "call Nnoremap('<leader><leader>', 'maI'.a:comment_string.'<Esc>`a')
 endfunction
 endif
 
@@ -55,7 +55,8 @@ augroup END
 " backspace cannot delete over indent, eol, start of insert position
 " use '<' and '>' to manipulate indent
 " use J(or gJ)to join lines
-set backspace=0 
+set nocompatible
+set backspace=2 
 set tabstop=4
 set shiftwidth=4
 set shiftround
@@ -141,7 +142,7 @@ nnoremap <silent> <leader># ?<C-r>"<CR>
 " insert a character
 nnoremap <silent> <Space> :exec "normal! i".nr2char(getchar())."\e"<CR>
 " append a character
-nnoremap <silent> <BS>    :exec "normal! a".nr2char(getchar())."\e"<CR>
+nmap <silent> <BS>    j.
 " paste at end of line, then back to prev position
 call Nnoremap('<leader>p', 'ma$p`a')
 " paste at begining of line
@@ -189,5 +190,4 @@ augroup END
 " }}}
 
 " disable keys that are not suggested to use {{{
-inoremap <Esc> <Nop>
 " }}}
