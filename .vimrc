@@ -137,8 +137,8 @@ nnoremap <silent> <leader>rc  :tabe   $MYVIMRC<CR>
 nnoremap <silent> <leader>a :let b:setlocal_paste=1<CR>:setlocal paste<CR>a
 nnoremap <silent> <leader>o :let b:setlocal_paste=1<CR>:setlocal paste<CR>o
 " search for text covered by 'd', 'c', 's', 'x', 'y'
-nnoremap <silent> <leader>* /<C-r>"<CR>
-nnoremap <silent> <leader># ?<C-r>"<CR>
+nnoremap <silent> <leader>* :let @/=escape(@", '^$\.*[]')<CR>/<CR>
+nnoremap <silent> <leader># :let @/=escape(@", '^$\.*[]')<CR>?<CR>
 " insert a character
 nnoremap <silent> <Space> :exec "normal! i".nr2char(getchar())."\e"<CR>
 " append a character
@@ -161,7 +161,6 @@ call Nnoremap('<leader>J', 'mai<CR><Esc>`a')
 if !exists("*CCppSettings")
 function! CCppSettings()
     " add ; at end of line, keep cursor position
-    call Nnoremap('<leader>;', 'maA;<Esc>`a')
     call AddCommentKeyMapping('//')
     set foldmethod=syntax
 endfunction
