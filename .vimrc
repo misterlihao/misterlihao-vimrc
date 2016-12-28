@@ -20,12 +20,6 @@ function! Nnoremap(lhs, rhs)
 endfunction
 endif
 
-if !exists("*AddCommentKeyMapping")
-function! AddCommentKeyMapping(comment_string)
-    "call Nnoremap('<leader><leader>', 'maI'.a:comment_string.'<Esc>`a')
-endfunction
-endif
-
 if !exists("*MyAfterInsert")
 function! MyAfterInsert()
     if b:setlocal_paste
@@ -62,7 +56,6 @@ set shiftwidth=4
 set shiftround
 set expandtab
 set number
-set relativenumber
 set scrolloff=2
 set ruler
 syntax on
@@ -116,15 +109,15 @@ nnoremap zK zk
 nnoremap <Left>   :tabp<CR>
 nnoremap <Right>  :tabn<CR>
 " scrolling
-noremap <Up>   <C-y>
-noremap <Down> <c-e>
-noremap <Home> gg
-noremap <End>  G
+nnoremap <Up>   <C-y>
+nnoremap <Down> <c-e>
+nnoremap <Home> gg
+nnoremap <End>  G
 " for dvoraker
-noremap <C-d>  h
-noremap <C-h>  j
-noremap <C-t>  k
-noremap <C-n>  l
+nnoremap <C-d>  h
+nnoremap <C-h>  j
+nnoremap <C-t>  k
+nnoremap <C-n>  l
 " }}}
 
 " leader mapping {{{
@@ -161,7 +154,6 @@ call Nnoremap('<leader>J', 'mai<CR><Esc>`a')
 if !exists("*CCppSettings")
 function! CCppSettings()
     " add ; at end of line, keep cursor position
-    call AddCommentKeyMapping('//')
     set foldmethod=syntax
 endfunction
 endif
@@ -169,22 +161,14 @@ if !exists("*VimSettings")
 function! VimSettings()
     " add ; at end of line, then go back to prev position
     setlocal foldmethod=marker
-    call AddCommentKeyMapping('"')
 endfunction
 endif
 augroup au_filetype
     autocmd!
-    autocmd FileType *       setlocal foldmethod=indent
+    autocmd FileType *       setlocal foldmethod=indent nofoldenable
     autocmd FileType vim     call VimSettings()
     autocmd FileType pov     set filetype=cpp " for .inc
     autocmd FileType c,cpp   call CCppSettings()
-    autocmd FileType python  call AddCommentKeyMapping('#')
-    autocmd FileType lua     call AddCommentKeyMapping('--')
-augroup END
-augroup au_ui
-    autocmd!
-    "autocmd InsertEnter * highlight StatusLine ctermbg=green guifg=green
-    "autocmd VimEnter,InsertLeave * highlight StatusLine ctermbg=white guifg=white
 augroup END
 " }}}
 
