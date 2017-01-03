@@ -133,7 +133,8 @@ nnoremap <silent> <leader>o :let b:setlocal_paste=1<CR>:setlocal paste<CR>o
 nnoremap <silent> <leader>* :let @/=escape(@", '^$\.*[]')<CR>/<CR>
 nnoremap <silent> <leader># :let @/=escape(@", '^$\.*[]')<CR>?<CR>
 " insert a character
-nnoremap <silent> <Space> :exec "normal! i".nr2char(getchar())."\e"<CR>
+" nnoremap <silent> <Space> :exec "normal! i".nr2char(getchar())."\e"<CR>
+nnoremap <Space> :
 " append a character
 nmap <silent> <BS>    j.
 " paste at end of line, then back to prev position
