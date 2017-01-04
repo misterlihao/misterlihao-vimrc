@@ -85,8 +85,6 @@ endif
 "}}}
 
 " global mapping {{{
-" c-u scrolling does not fit folding
-nnoremap <C-u> <C-b>
 " agile editing (C-h is natively preserved)
 inoremap <C-D>  <Delete>
 " rumor says that Ctrl-C will not fire the 'InsertLeave' event
@@ -113,11 +111,6 @@ nnoremap <Up>   <C-y>
 nnoremap <Down> <c-e>
 nnoremap <Home> gg
 nnoremap <End>  G
-" for dvoraker
-nnoremap <C-d>  h
-nnoremap <C-h>  j
-nnoremap <C-t>  k
-nnoremap <C-n>  l
 " }}}
 
 " leader mapping {{{
