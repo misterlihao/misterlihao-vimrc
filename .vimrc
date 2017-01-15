@@ -111,6 +111,9 @@ nnoremap <Up>   <C-y>
 nnoremap <Down> <c-e>
 nnoremap <Home> gg
 nnoremap <End>  G
+" insert a character
+" nnoremap <silent> <Space> :exec "normal! i".nr2char(getchar())."\e"<CR>
+nnoremap <Space> :
 " }}}
 
 " leader mapping {{{
@@ -125,9 +128,6 @@ nnoremap <silent> <leader>o :let b:setlocal_paste=1<CR>:setlocal paste<CR>o
 " search for text covered by 'd', 'c', 's', 'x', 'y'
 nnoremap <silent> <leader>* :let @/=escape(@", '^$\.*[]')<CR>/<CR>
 nnoremap <silent> <leader># :let @/=escape(@", '^$\.*[]')<CR>?<CR>
-" insert a character
-" nnoremap <silent> <Space> :exec "normal! i".nr2char(getchar())."\e"<CR>
-nnoremap <Space> :
 " append a character
 nmap <silent> <BS>    j.
 " paste at end of line, then back to prev position
@@ -168,3 +168,43 @@ augroup END
 
 " disable keys that are not suggested to use {{{
 " }}}
+
+" vim learning steps
+" 1. no arrow keys in insert mode
+"     ctrl + c / ctrl + [
+"     i / a / I / A
+" 
+" 2. u / ctrl + R
+"     ctrl + n / ctrl + p (insert mode)
+" 
+" 3. learn to use h/j/k/l instead of arrow keys in normal mode
+" 
+" 4. x / X
+" 
+" 5. learn to use commands:
+"     command -> operation + text_object(range)
+"     command on current line -> operation*2
+"     use operation like: c / d / = / < / >
+"     use text object like: w / % / t / f / T / F / iw / i" / i( / g / G
+" 
+" 6. learn use dot command
+" 
+" 7. use useful commands:
+"     p / P
+"     w / b
+"     g; / g,
+"     zz / zt / zb
+"     H / M/ L
+"     "vim folding"
+"     :retab
+"     ctrl+A (in insert mode)
+"     ctrl+A / ctrl+X
+"     :set hls / :nohls
+"     * / #
+"     
+" 8. learn to use tabs(must map the keys):
+"     :tabe
+"     :edit
+"     :view
+"     :tabn(map to F3 or something)
+"     :tabp(map to F4 or something)
