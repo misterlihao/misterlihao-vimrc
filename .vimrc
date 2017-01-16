@@ -129,6 +129,8 @@ nnoremap <silent> <leader>o :let b:setlocal_paste=1<CR>:setlocal paste<CR>o
 " search for text covered by 'd', 'c', 's', 'x', 'y'
 nnoremap <silent> <leader>* :let @/=escape(@", '^$\.*[]')<CR>/<CR>
 nnoremap <silent> <leader># :let @/=escape(@", '^$\.*[]')<CR>?<CR>
+" cancel searching highligh temporarily
+nnoremap <silent> \ :nohls<CR>
 " append a character
 nmap <silent> <BS>    j.
 " paste at end of line, then back to prev position
@@ -170,7 +172,7 @@ augroup END
 " disable keys that are not suggested to use {{{
 " }}}
 
-" vim learning steps
+" vim learning steps {{{
 " 1. no arrow keys in insert mode
 "     ctrl + c / ctrl + [
 "     i / a / I / A
@@ -209,3 +211,4 @@ augroup END
 "     :view
 "     :tabn(map to F3 or something)
 "     :tabp(map to F4 or something)
+" }}}
