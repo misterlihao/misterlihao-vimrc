@@ -70,6 +70,7 @@ set laststatus=2
 set swapfile
 set nobackup
 
+set hls
 set background=dark
 silent! source ~/vim.color
 if has('gui_running')
